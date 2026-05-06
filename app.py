@@ -10,7 +10,6 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 # --- FUNCIÓN CORREGIDA: Lectura segura de la carpeta data ---
 def obtener_contexto():
     contexto = ""
-    # Localiza la carpeta 'data' sin importar si estás en Windows o Linux (Render)
     base_dir = os.path.dirname(os.path.abspath(__file__))
     ruta_data = os.path.join(base_dir, 'data')
     
@@ -20,9 +19,12 @@ def obtener_contexto():
                 with open(os.path.join(ruta_data, archivo), 'r', encoding='utf-8') as f:
                     contexto += f.read() + "\n"
     
-    # Este mensaje aparecerá en los logs de Render para confirmar que leyó el archivo
-    print(f"DEBUG: Contexto cargado con éxito ({len(contexto)} caracteres)")
-    return contexto
+    # IMPORTANTE: Recortamos el texto a los primeros 3000 caracteres 
+    # para no superar el límite de Groq (Error 413)
+    contexto_recortado = contexto[:3000]
+    
+    print(f"DEBUG: Contexto limitado a {len(contexto_recortado)} caracteres")
+    return contexto_recortado
 # -----------------------------------------------------------
 
 HTML_TEMPLATE = """

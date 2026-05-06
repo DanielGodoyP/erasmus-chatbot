@@ -7,18 +7,23 @@ load_dotenv()
 app = Flask(__name__)
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-# --- NUEVA FUNCIÓN: Esto es lo que lee tu archivo informacion.txt ---
+# --- FUNCIÓN CORREGIDA: Lectura segura de la carpeta data ---
 def obtener_contexto():
     contexto = ""
-    ruta_data = 'data'
+    # Localiza la carpeta 'data' sin importar si estás en Windows o Linux (Render)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    ruta_data = os.path.join(base_dir, 'data')
+    
     if os.path.exists(ruta_data):
         for archivo in os.listdir(ruta_data):
-            # Lee cualquier archivo .txt en la carpeta data
             if archivo.endswith('.txt'):
                 with open(os.path.join(ruta_data, archivo), 'r', encoding='utf-8') as f:
                     contexto += f.read() + "\n"
-    return contexto[:4000] # Limitamos para que Groq no se sature
-# -------------------------------------------------------------------
+    
+    # Este mensaje aparecerá en los logs de Render para confirmar que leyó el archivo
+    print(f"DEBUG: Contexto cargado con éxito ({len(contexto)} caracteres)")
+    return contexto
+# -----------------------------------------------------------
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -82,22 +87,26 @@ def chat():
     data = request.json
     user_message = data.get("message", "")
     
-    # --- CAMBIO CLAVE: Aquí es donde el bot lee la información ---
+    # Carga la información del archivo txt
     contexto = obtener_contexto() 
     
+    # Prompt blindado para evitar alucinaciones (que la IA invente)
     prompt = f"""
     Eres el asistente oficial de movilidad del CSEU La Salle. 
-    Usa estrictamente esta información de la convocatoria para responder:
+    TU REGLA DE ORO: Responde ÚNICAMENTE basándote en el CONTEXTO proporcionado abajo. 
+    Si la respuesta no está en el CONTEXTO, di: "Lo siento, no tengo esa información en las bases actuales".
+    Usa un tono amable y ayuda al alumno con los datos exactos del texto.
+
+    CONTEXTO EXTRAÍDO DE LAS BASES:
     {contexto}
     
-    Pregunta del alumno: {user_message}
-    Respuesta amable y concisa:
+    PREGUNTA DEL ALUMNO: {user_message}
     """
-    # -------------------------------------------------------------
     
     completion = client.chat.completions.create(
         model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": prompt}]
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.1  # Baja creatividad = mayor fidelidad al texto del archivo
     )
     return jsonify({"response": completion.choices[0].message.content})
 

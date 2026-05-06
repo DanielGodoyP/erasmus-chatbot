@@ -13,7 +13,7 @@ os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
 # 1. BASE DE DATOS 
 def get_vectorstore():
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L12-v2")
     docs = []
     if not os.path.exists("data"): os.makedirs("data")
     for file in os.listdir("data"):

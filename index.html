@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Chatbot Erasmus</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #chatbox { border: 2px solid #ccc; padding: 20px; width: 400px; border-radius: 10px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        button { padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+        #respuesta { margin-top: 20px; color: #333; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <div id="chatbox">
+        <h2>Chatbot Erasmus La Salle</h2>
+        <input type="text" id="pregunta" placeholder="Escribe aquí tu duda sobre el Erasmus...">
+        <button onclick="enviarPregunta()">Preguntar a la IA</button>
+        
+        <div id="respuesta"><strong>El bot responderá aquí...</strong></div>
+    </div>
+
+    <script>
+        async function enviarPregunta() {
+            const mensaje = document.getElementById('pregunta').value;
+            document.getElementById('respuesta').innerHTML = "<em>Pensando la respuesta...</em>";
+            
+            try {
+                const response = await fetch('http://127.0.0.1:10000/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: mensaje })
+                });
+                
+                const data = await response.json();
+                document.getElementById('respuesta').innerText = data.reply;
+            } catch (error) {
+                document.getElementById('respuesta').innerText = "Error: El bot está apagado o no responde.";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -31,53 +31,28 @@ def obtener_contexto():
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Chatbot Erasmus La Salle</title>
+    <meta charset="UTF-8">
+    <title>Campus Virtual La Salle</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .chat-container { width: 450px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
-        .header { background: #004a99; color: white; padding: 20px; text-align: center; font-weight: bold; font-size: 1.2em; }
-        #chatbox { height: 400px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #fff; }
-        .message { padding: 10px 15px; border-radius: 18px; max-width: 80%; font-size: 14px; line-height: 1.4; }
-        .user { background: #004a99; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .bot { background: #e9ecef; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .input-area { border-top: 1px solid #eee; padding: 15px; display: flex; gap: 10px; background: white; }
-        input { flex: 1; border: 1px solid #ddd; padding: 12px; border-radius: 25px; outline: none; }
-        button { background: #004a99; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #003570; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding-top: 100px; 
+            background-color: #f4f7f6; 
+            color: #333;
+        }
+        h1 { color: #003366; font-size: 2.5em; }
+        p { font-size: 1.2em; color: #666; }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="header">Erasmus La Salle 🤖</div>
-        <div id="chatbox"></div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Escribe tu duda sobre Erasmus...">
-            <button onclick="sendMessage()">Enviar</button>
-        </div>
-    </div>
-    <script>
-        async function sendMessage() {
-            const input = document.getElementById('user-input');
-            const chatbox = document.getElementById('chatbox');
-            const msg = input.value;
-            if (!msg) return;
+    <h1>🏛️ Portal de Alumnos - CSEU La Salle</h1>
+    <p>Bienvenido al simulador de la página web de la universidad.</p>
+    <p>Fíjate en la esquina inferior derecha de la pantalla 👇</p>
 
-            chatbox.innerHTML += `<div class="message user">${msg}</div>`;
-            input.value = '';
-            chatbox.scrollTop = chatbox.scrollHeight;
-
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({message: msg})
-            });
-            const data = await response.json();
-            chatbox.innerHTML += `<div class="message bot">${data.response}</div>`;
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
-    </script>
+    <script src="/static/widget.js"></script>
 </body>
 </html>
 """

@@ -161,7 +161,7 @@
 
     try {
         // ⚠️ PON TU ENLACE DE RENDER AQUÍ (Ej: https://tu-proyecto.onrender.com/chat)
-        const res = await fetch("https://erasmus-chatbot-lasalle.onrender.com", {
+          const res = await fetch("https://erasmus-chatbot-lasalle.onrender.com/chat", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({message: msg})

@@ -2,9 +2,11 @@ import os
 from flask import Flask, request, jsonify, render_template_string
 from groq import Groq
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # --- FUNCIÓN CORREGIDA: Lectura segura de la carpeta data ---

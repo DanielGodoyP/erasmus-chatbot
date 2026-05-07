@@ -1,5 +1,5 @@
 (function () {
-  // 1. Inyectar estilos CSS y fuente Montserrat
+  // 1. estilos CSS y fuente Montserrat
   const styleHTML = `
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
@@ -160,7 +160,6 @@
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
     try {
-        // ⚠️ PON TU ENLACE DE RENDER AQUÍ (Ej: https://tu-proyecto.onrender.com/chat)
           const res = await fetch("https://erasmus-chatbot-lasalle.onrender.com/chat", {
           method: "POST",
           headers: {"Content-Type": "application/json"},

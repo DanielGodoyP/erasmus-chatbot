@@ -9,7 +9,6 @@ app = Flask(__name__)
 CORS(app)
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-# --- FUNCIÓN CORREGIDA: Lectura segura de la carpeta data ---
 def obtener_contexto():
     contexto = ""
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,8 +20,6 @@ def obtener_contexto():
                 with open(os.path.join(ruta_data, archivo), 'r', encoding='utf-8') as f:
                     contexto += f.read() + "\n"
     
-    # IMPORTANTE: Recortamos el texto a los primeros 3000 caracteres 
-    # para no superar el límite de Groq (Error 413)
     contexto_recortado = contexto[:3000]
     
     print(f"DEBUG: Contexto limitado a {len(contexto_recortado)} caracteres")
@@ -69,7 +66,6 @@ def chat():
     # Carga la información del archivo txt
     contexto = obtener_contexto() 
     
-    # Prompt blindado para evitar alucinaciones (que la IA invente)
     prompt = f"""
     Eres el asistente oficial de movilidad del CSEU La Salle. 
     TU REGLA DE ORO: Responde ÚNICAMENTE basándote en el CONTEXTO proporcionado abajo. 
@@ -87,7 +83,7 @@ def chat():
     completion = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.1  # Baja creatividad = mayor fidelidad al texto del archivo
+        temperature=0.1  
     )
     return jsonify({"response": completion.choices[0].message.content})
 

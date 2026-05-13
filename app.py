@@ -33,21 +33,48 @@ HTML_TEMPLATE = """
     <meta charset="UTF-8">
     <title>Campus Virtual La Salle</title>
     <style>
+        /* Quitamos los márgenes por defecto para que la cabecera ocupe todo el ancho */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            padding-top: 100px; 
+            margin: 0; 
+            padding: 0; 
             background-color: #f4f7f6; 
             color: #333;
         }
-        h1 { color: #003366; font-size: 2.5em; }
+        
+        /* Estilos de la nueva cabecera blanca superior */
+        header {
+            background-color: #ffffff;
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Tamaño del logo */
+        .logo-lasalle {
+            height: 45px; /* Puedes subir o bajar este número si lo ves muy grande o pequeño */
+        }
+
+        /* Centramos el texto del resto de la página */
+        .contenido {
+            text-align: center;
+            padding-top: 80px;
+        }
+        h1 { color: #1b2c65; font-size: 2.5em; }
         p { font-size: 1.2em; color: #666; }
     </style>
 </head>
 <body>
-    <h1>🏛️ Portal de Alumnos - CSEU La Salle</h1>
-    <p>Bienvenido al simulador de la página web de la universidad.</p>
-    <p>Fíjate en la esquina inferior derecha de la pantalla 👇</p>
+    <header>
+        <img src="/static/logo.jpg" alt="Logo La Salle" class="logo-lasalle">
+    </header>
+
+    <div class="contenido">
+        <h1>🏛️ Portal de Alumnos - CSEU La Salle</h1>
+        <p>Bienvenido al simulador de la página web de la universidad.</p>
+        <p>Fíjate en la esquina inferior derecha de la pantalla 👇</p>
+    </div>
 
     <script src="/static/widget.js"></script>
 </body>

@@ -85,7 +85,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <header>
-        <img src="/static/logo.png" alt="Logo La Salle" class="logo-lasalle">
+        <img src="/static/logo.jpg" alt="Logo La Salle" class="logo-lasalle">
     </header>
 
     <div class="contenido">

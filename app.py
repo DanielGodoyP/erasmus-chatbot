@@ -31,49 +31,74 @@ HTML_TEMPLATE = """
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Campus Virtual La Salle</title>
+    <title>Movilidad Erasmus+ | La Salle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Quitamos los márgenes por defecto para que la cabecera ocupe todo el ancho */
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Montserrat', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f4f7f6; 
+            background-color: #f8f9fa; 
             color: #333;
         }
         
-        /* Estilos de la nueva cabecera blanca superior */
         header {
             background-color: #ffffff;
             padding: 15px 40px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
+            border-bottom: 3px solid #ffc800; /* Línea amarilla corporativa */
         }
         
-        /* Tamaño del logo */
         .logo-lasalle {
-            height: 45px; /* Puedes subir o bajar este número si lo ves muy grande o pequeño */
+            height: 45px;
         }
 
-        /* Centramos el texto del resto de la página */
         .contenido {
             text-align: center;
-            padding-top: 80px;
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        h1 { color: #1b2c65; font-size: 2.5em; }
-        p { font-size: 1.2em; color: #666; }
+        
+        h1 { 
+            color: #1b2c65; /* Azul oficial */
+            font-size: 2.8em; 
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        p.subtitulo { 
+            font-size: 1.2em; 
+            color: #555; 
+            line-height: 1.6;
+        }
+
+        p.ayuda {
+            font-size: 0.95em;
+            color: #888;
+            margin-top: 50px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="/static/logo.jpg" alt="Logo La Salle" class="logo-lasalle">
+        <img src="/static/logo.png" alt="Logo La Salle" class="logo-lasalle">
     </header>
 
     <div class="contenido">
-        <h1>🏛️ Portal de Alumnos - CSEU La Salle</h1>
-        <p>Bienvenido al simulador de la página web de la universidad.</p>
-        <p>Fíjate en la esquina inferior derecha de la pantalla 👇</p>
+        <h1>Movilidad Internacional</h1>
+        <p class="subtitulo">
+            Bienvenido al espacio de Programas Erasmus+ del CSEU La Salle.<br>
+            Te acompañamos a donde quieras llegar: descubre destinos, becas y prepara tu próxima aventura académica.
+        </p>
+        
+        <p class="ayuda">
+            ¿Tienes alguna duda sobre plazos o requisitos de idioma?<br>
+            Abre el asistente virtual en la esquina inferior derecha para obtener respuestas al instante.
+        </p>
     </div>
 
     <script src="/static/widget.js"></script>
